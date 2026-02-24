@@ -3,7 +3,7 @@
   "name": "Mobvoi Treadmill",
   "bluetooth": [
     {
-      "local_name": "Mobvoi"
+      "local_name": "Mobvoi*"
     }
   ],
   "codeowners": [],
