@@ -1,0 +1,21 @@
+{
+  "domain": "mobvoi_treadmill",
+  "name": "Mobvoi Treadmill",
+  "bluetooth": [
+    {
+      "local_name": "Mobvoi"
+    }
+  ],
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [
+    "bluetooth"
+  ],
+  "documentation": "https://github.com/JohNan/homeassistant-mobvoi_treadmill",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/JohNan/homeassistant-mobvoi_treadmill/issues",
+  "requirements": [
+    "pymvtreadmill==0.1.0"
+  ],
+  "version": "0.1.0"
+}
