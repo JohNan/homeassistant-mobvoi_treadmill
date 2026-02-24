@@ -35,14 +35,16 @@ async def async_setup_entry(
     ble_device = async_ble_device_from_address(hass, address)
 
     if not ble_device:
-        raise ConfigEntryNotReady(f"Could not find BLE device with address {address}")
+        msg = f"Could not find BLE device with address {address}"
+        raise ConfigEntryNotReady(msg)
 
     client = TreadmillClient()
 
     try:
         await client.connect(ble_device)
     except Exception as exception:
-        raise ConfigEntryNotReady(f"Failed to connect to {address}: {exception}") from exception
+        msg = f"Failed to connect to {address}: {exception}"
+        raise ConfigEntryNotReady(msg) from exception
 
     coordinator = TreadmillDataUpdateCoordinator(
         hass=hass,
@@ -74,7 +76,7 @@ async def async_unload_entry(
     # Disconnect client
     try:
         await entry.runtime_data.client.disconnect()
-    except Exception:
+    except Exception:  # noqa: BLE001
         LOGGER.exception("Error disconnecting from treadmill")
 
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)

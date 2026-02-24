@@ -5,9 +5,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
-from pymvtreadmill import TreadmillClient
 
 if TYPE_CHECKING:
+    from datetime import timedelta
+    from logging import Logger
+
+    from homeassistant.core import HomeAssistant
+    from pymvtreadmill import TreadmillClient
+
     from .data import TreadmillConfigEntry
 
 
@@ -17,7 +22,14 @@ class TreadmillDataUpdateCoordinator(DataUpdateCoordinator):
     config_entry: TreadmillConfigEntry
     client: TreadmillClient
 
-    def __init__(self, hass, logger, name, update_interval, client: TreadmillClient):
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        logger: Logger,
+        name: str,
+        update_interval: timedelta,
+        client: TreadmillClient,
+    ) -> None:
         """Initialize."""
         super().__init__(hass, logger, name=name, update_interval=update_interval)
         self.client = client

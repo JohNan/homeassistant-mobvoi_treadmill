@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import voluptuous as vol
 from homeassistant import config_entries
@@ -11,9 +11,11 @@ from homeassistant.components.bluetooth import (
     async_discovered_service_info,
 )
 from homeassistant.const import CONF_ADDRESS, CONF_NAME
-from homeassistant.data_entry_flow import FlowResult
 
 from .const import DOMAIN
+
+if TYPE_CHECKING:
+    from homeassistant.data_entry_flow import FlowResult
 
 
 class TreadmillFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -67,7 +69,9 @@ class TreadmillFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             address = user_input[CONF_ADDRESS]
             # Find the device info again to be sure
             discovered = async_discovered_service_info(self.hass)
-            discovery_info = next((info for info in discovered if info.address == address), None)
+            discovery_info = next(
+                (info for info in discovered if info.address == address), None
+            )
 
             if discovery_info:
                 await self.async_set_unique_id(discovery_info.address)
@@ -79,8 +83,7 @@ class TreadmillFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                         CONF_ADDRESS: discovery_info.address,
                     },
                 )
-            else:
-                errors["base"] = "cannot_connect"
+            errors["base"] = "cannot_connect"
 
         # List devices
         discovered = async_discovered_service_info(self.hass)
@@ -98,7 +101,10 @@ class TreadmillFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema(
                 {
                     vol.Required(CONF_ADDRESS): vol.In(
-                        {info.address: f"{info.name} ({info.address})" for info in treadmills}
+                        {
+                            info.address: f"{info.name} ({info.address})"
+                            for info in treadmills
+                        }
                     )
                 }
             ),
