@@ -1,0 +1,21 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "description": "Select a Treadmill to connect to.",
+                "data": {
+                    "address": "Bluetooth Address",
+                    "name": "Device Name"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to the device.",
+            "unknown": "Unknown error occurred."
+        },
+        "abort": {
+            "already_configured": "Device is already configured.",
+            "no_devices_found": "No Mobvoi Treadmills found."
+        }
+    }
+}
