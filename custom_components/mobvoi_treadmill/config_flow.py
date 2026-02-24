@@ -88,9 +88,7 @@ class TreadmillFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         # List devices
         discovered = async_discovered_service_info(self.hass)
         treadmills = [
-            info
-            for info in discovered
-            if info.name and info.name.startswith("Mobvoi")
+            info for info in discovered if info.name and info.name.startswith("Mobvoi")
         ]
 
         if not treadmills:
