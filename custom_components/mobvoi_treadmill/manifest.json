@@ -4,6 +4,12 @@
   "bluetooth": [
     {
       "local_name": "Mobvoi*"
+    },
+    {
+      "service_uuid": "1826"
+    },
+    {
+      "manufacturer_id": 37911
     }
   ],
   "codeowners": [],
