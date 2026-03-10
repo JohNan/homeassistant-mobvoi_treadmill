@@ -45,4 +45,7 @@ class TreadmillDataUpdateCoordinator(DataUpdateCoordinator):
             "total_distance": self.client.total_distance,
             "last_run_distance": self.client.last_run_distance,
             "is_running": self.client.is_running,
+            "is_connected": self.client.client.is_connected
+            if self.client.client
+            else False,
         }
